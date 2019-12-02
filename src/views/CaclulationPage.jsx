@@ -1,42 +1,98 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
-import TextInput from "components/TextInput";
+import CalculationFormGeneral from "containers/CalculationFormGeneral";
+import CalculationFormWalls from "containers/CalculationFormWalls";
 
-import { Formik, Form } from "formik";
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: "100%"
+  },
+  backButton: {
+    marginRight: theme.spacing(1)
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1)
+  }
+}));
 
-const CaclulationPage = props => {
+function getSteps() {
+  return ["Загальні дані", "Стіни", "Результат"];
+}
+
+function getStepContent(stepIndex) {
+  switch (stepIndex) {
+    case 0:
+      return <CalculationFormGeneral />;
+    case 1:
+      return <CalculationFormWalls />;
+    case 2:
+      return "Це результат";
+    default:
+      return "Unknown stepIndex";
+  }
+}
+
+export default function HorizontalLabelPositionBelowStepper() {
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = getSteps();
+
+  const handleNext = () => {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
   return (
-    <div>
-      <div>Calculation Page</div>
+    <div className={classes.root}>
+      <Stepper activeStep={activeStep} alternativeLabel>
+        {steps.map(label => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
       <div>
-        <Formik
-          initialValues={{ area: 0 }}
-          onSubmit={(values, actions) => {
-            console.log("values", values);
-          }}
-        >
-          {props => (
-            <Form>
-              <TextInput
-                fieldName="area"
-                labelText="Площа квартири"
-                unitText={
-                  <span>
-                    м<sup>2</sup>
-                  </span>
-                }
-              />
-            </Form>
-          )}
-        </Formik>
-        />
+        {activeStep === steps.length ? (
+          <div>
+            <Typography className={classes.instructions}>
+              All steps completed
+            </Typography>
+            <Button onClick={handleReset}>Reset</Button>
+          </div>
+        ) : (
+          <div>
+            <Typography className={classes.instructions}>
+              {getStepContent(activeStep)}
+            </Typography>
+            <div>
+              <Button
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                className={classes.backButton}
+              >
+                Back
+              </Button>
+              <Button variant="contained" color="primary" onClick={handleNext}>
+                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
-  return <div>Calculation Page</div>;
-};
-
-CaclulationPage.propTypes = {};
-
-export default CaclulationPage;
+}

@@ -24,7 +24,7 @@ const TextInput = ({ labelText, unitText, fieldName, ...props }) => {
                 {...props}
               />
             </div>
-            <span>{unitText}</span>
+            {unitText && <span>{unitText}</span>}
           </InlineContainer>
 
           {meta.touched && meta.error && (
@@ -39,7 +39,9 @@ const TextInput = ({ labelText, unitText, fieldName, ...props }) => {
 TextInput.propTypes = {
   labelText: PropTypes.string.isRequired,
   unitText: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
-    .isRequired
+};
+TextInput.defaultProps = {
+  unitText: undefined
 };
 
 export default TextInput;
