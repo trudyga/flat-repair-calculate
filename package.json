@@ -24,7 +24,7 @@
     "eject": "react-scripts eject",
     "serve": "serve -s build -l 80",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -b master -d build"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
