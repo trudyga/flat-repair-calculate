@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/flat-repair-calculate/precache-manifest.880f43784c5dd8b3a7117337e89b4127.js"
+  "/flat-repair-calculate/precache-manifest.ea0a6109e3deccac294cf4a15f168bab.js"
 );
 
 self.addEventListener('message', (event) => {
