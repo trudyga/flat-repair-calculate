@@ -82,7 +82,8 @@ const CalculationResult = ({ values, onClose }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const requestUrl = "http://rayn934-001-site1.ctempurl.com/flat/initialize";
+    const requestUrl =
+      "https://cors-anywhere.herokuapp.com/http://rayn934-001-site1.ctempurl.com/flat/initialize";
     const requestBody = mapValuesToRequestObj(values);
 
     fetch(requestUrl, {

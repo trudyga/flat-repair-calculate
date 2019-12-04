@@ -38,13 +38,20 @@ const WallsSchema = Yup.object().shape({
 });
 
 const TYPES = {
-  walls: "http://rayn934-001-site1.ctempurl.com/flat/room/walls",
-  floors: "http://rayn934-001-site1.ctempurl.com/flat/room/floors",
-  doors: "http://rayn934-001-site1.ctempurl.com/flat/room/doors",
-  baseboards: "http://rayn934-001-site1.ctempurl.com/flat/room/baseboards",
-  powersockets: "http://rayn934-001-site1.ctempurl.com/flat/room/powersockets",
-  kitchens: "http://rayn934-001-site1.ctempurl.com/flat/kitchens",
-  bathrooms: "http://rayn934-001-site1.ctempurl.com/flat/bathrooms"
+  walls:
+    "https://cors-anywhere.herokuapp.com/http://rayn934-001-site1.ctempurl.com/flat/room/walls",
+  floors:
+    "https://cors-anywhere.herokuapp.com/http://rayn934-001-site1.ctempurl.com/flat/room/floors",
+  doors:
+    "https://cors-anywhere.herokuapp.com/http://rayn934-001-site1.ctempurl.com/flat/room/doors",
+  baseboards:
+    "https://cors-anywhere.herokuapp.com/http://rayn934-001-site1.ctempurl.com/flat/room/baseboards",
+  powersockets:
+    "https://cors-anywhere.herokuapp.com/http://rayn934-001-site1.ctempurl.com/flat/room/powersockets",
+  kitchens:
+    "https://cors-anywhere.herokuapp.com/http://rayn934-001-site1.ctempurl.com/flat/kitchens",
+  bathrooms:
+    "https://cors-anywhere.herokuapp.com/http://rayn934-001-site1.ctempurl.com/flat/bathrooms"
 };
 
 const CalculationFormWalls = ({

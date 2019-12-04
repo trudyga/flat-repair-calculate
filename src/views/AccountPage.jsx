@@ -27,7 +27,8 @@ const AccountPage = props => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => detectAuth());
 
   function register(opts) {
-    const endpoint = "http://rayn934-001-site1.ctempurl.com/register";
+    const endpoint =
+      "https://cors-anywhere.herokuapp.com/http://rayn934-001-site1.ctempurl.com/register";
 
     var form_data = new FormData();
     for (var key in opts) {
@@ -51,7 +52,8 @@ const AccountPage = props => {
   }
 
   function auth(opts) {
-    const endpoint = "http://rayn934-001-site1.ctempurl.com/authorize";
+    const endpoint =
+      "https://cors-anywhere.herokuapp.com/http://rayn934-001-site1.ctempurl.com/authorize";
 
     var form_data = new FormData();
     for (var key in opts) {

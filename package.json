@@ -2,7 +2,7 @@
   "name": "flat-repair-calculate",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://trudyga.github.io/flat-repair-calculate",
+  "homepage": "http://trudyga.github.io/flat-repair-calculate",
   "dependencies": {
     "@material-ui/core": "^4.7.0",
     "@material-ui/icons": "^4.5.1",
