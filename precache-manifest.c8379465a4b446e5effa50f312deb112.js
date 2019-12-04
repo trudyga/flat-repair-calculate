@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8efdae213d92346a1e90129f69a58b1b",
+    "revision": "f25aa42a1fd5ce0c4eea2edf9d1adad4",
     "url": "/flat-repair-calculate/index.html"
   },
   {
-    "revision": "6bba1857d9c20f821888",
+    "revision": "dc7d3b49be98b3012a81",
     "url": "/flat-repair-calculate/static/css/main.2682208a.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/flat-repair-calculate/static/js/2.d2b9404d.chunk.js"
   },
   {
-    "revision": "6bba1857d9c20f821888",
-    "url": "/flat-repair-calculate/static/js/main.df7e9493.chunk.js"
+    "revision": "dc7d3b49be98b3012a81",
+    "url": "/flat-repair-calculate/static/js/main.06ceb742.chunk.js"
   },
   {
     "revision": "e2e59164726e2757a393",
