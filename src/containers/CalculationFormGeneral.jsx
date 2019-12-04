@@ -5,8 +5,12 @@ import TextInput from "components/TextInput";
 import NumberInput from "components/NumberInput";
 import OneOfInput from "components/OneOfInput";
 
+import ActionButton from "components/ActionButton";
+
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+
+import styled from "styled-components";
 
 const GeneralSchema = Yup.object().shape({
   area: Yup.number()
@@ -36,6 +40,15 @@ const GeneralSchema = Yup.object().shape({
     .trim()
     .required()
 });
+
+const ButtonsBlock = styled.div`
+  display: flex;
+  justify-content: center;
+
+  :not(:last-child) {
+    margin-right: 10px;
+  }
+`;
 
 const CalculationFormGeneral = ({ initials, onSubmit: onFormSubmit }) => {
   return (
@@ -84,9 +97,16 @@ const CalculationFormGeneral = ({ initials, onSubmit: onFormSubmit }) => {
               ]}
             />
             <TextInput fieldName="address" labelText="Адреса будинку" />
-            <button disabled={Object.values(errors).length > 0} type="submit">
-              Продовжити
-            </button>
+
+            <ButtonsBlock>
+              <ActionButton
+                color="primary"
+                disabled={Object.values(errors).length > 0}
+                type="submit"
+              >
+                Продовжити
+              </ActionButton>
+            </ButtonsBlock>
           </Form>
         )}
       </Formik>

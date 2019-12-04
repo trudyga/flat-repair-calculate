@@ -2,7 +2,44 @@ import React, { useState, useEffect } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import PropTypes from "prop-types";
 
+import styled from "styled-components";
+
 import { CircularProgress } from "@material-ui/core";
+
+import ActionButton from "components/ActionButton";
+
+const Row = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+`;
+const ButtonsRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+`;
+const Label = styled.span`
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+
+  margin-right: 1em;
+`;
+
+const Value = styled.span`
+  display: inline-block;
+  background: #fcd016;
+  border-radius: 20px;
+
+  padding: 10px 20px;
+`;
 
 function mapValuesToRequestObj({
   area,
@@ -88,20 +125,20 @@ const CalculationResult = ({ values, onClose }) => {
   console.log("area", "cost", area, Cost);
   return (
     <div>
-      <div>
-        <span>Загальна вартість</span>
-        <span>{Math.round(Cost)} грн</span>
-      </div>
-      <div>
-        <span>Вартість за м2</span>
-        <span>{Math.round(Cost / area)} грн</span>
-      </div>
+      <Row>
+        <Label>Загальна вартість</Label>
+        <Value>{Math.round(Cost)} грн</Value>
+      </Row>
+      <Row>
+        <Label>Вартість за м2</Label>
+        <Value>{Math.round(Cost / area)} грн</Value>
+      </Row>
 
-      <div>
-        <button type="button" onClick={onClose}>
+      <ButtonsRow>
+        <ActionButton color="primary" type="button" onClick={onClose}>
           Завершити
-        </button>
-      </div>
+        </ActionButton>
+      </ButtonsRow>
     </div>
   );
 };

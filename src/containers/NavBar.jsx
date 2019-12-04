@@ -5,6 +5,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 const Nav = styled.div`
   display: flex;
+  border-bottom: 1px solid black;
 `;
 
 const Logo = styled.h1`

@@ -6,6 +6,14 @@ import TextInput from "components/TextInput";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
+import styled from "styled-components";
+import ActionButton from "components/ActionButton";
+
+const ButtonsBlock = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const AuthSchema = Yup.object().shape({
   username: Yup.string()
     .trim()
@@ -49,12 +57,15 @@ const Register = ({ onSubmit }) => {
               labelText="Пароль"
               type="password"
             />
-            <button
-              disabled={hasErrors(errors, initialErrors, touched)}
-              type="submit"
-            >
-              Увійти
-            </button>
+            <ButtonsBlock>
+              <ActionButton
+                color="primary"
+                disabled={hasErrors(errors, initialErrors, touched)}
+                type="submit"
+              >
+                Увійти
+              </ActionButton>
+            </ButtonsBlock>
           </Form>
         )}
       </Formik>

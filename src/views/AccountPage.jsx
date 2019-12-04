@@ -6,6 +6,19 @@ import { Link, Switch, Route, Redirect } from "react-router-dom";
 import RegisterForm from "containers/RegisterForm";
 import AuthForm from "containers/AuthForm";
 
+import styled from "styled-components";
+
+const Container = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+`;
+const H1 = styled.h1`
+  text-align: center;
+`;
+const Center = styled.div`
+  text-align: center;
+`;
+
 function detectAuth() {
   return localStorage.getItem("token") !== null;
 }
@@ -95,34 +108,45 @@ const AccountPage = props => {
   }
 
   return (
-    <>
+    <Container>
       {redirectPath !== null && (
         <span>Вам необхідно увійти до системи для розрахунку вартості</span>
       )}
       {!isAuthenticated && (
         <Switch>
           <Route path="/my-account/register">
+            <H1>Реєстрація</H1>
             <RegisterForm onSubmit={values => regiserUser(values)} />
-            <Link to="/my-account/auth">Вже є аккаунт? Авторизуйтесь</Link>
+            <Center>
+              <Link to="/my-account/auth">Вже є аккаунт? Авторизуйтесь</Link>
+            </Center>
           </Route>
           <Route path="/my-account/auth">
+            <H1>Авторизація</H1>
             <AuthForm onSubmit={values => authUser(values)} />
-            <Link to="/my-account/register">Немає аккаунту?</Link>
+            <Center>
+              <Link to="/my-account/register">Немає аккаунту?</Link>
+            </Center>
           </Route>
 
           <Route>
+            <H1>Реєстрація</H1>
             <RegisterForm onSubmit={values => regiserUser(values)} />
-            <Link to="/my-account/auth">Вже є аккаунт? Авторизуйтесь</Link>
+            <Center>
+              <Link to="/my-account/auth">Вже є аккаунт? Авторизуйтесь</Link>
+            </Center>
           </Route>
         </Switch>
       )}
 
       {isAuthenticated && (
-        <Link to="/" type="button" onClick={() => logout()}>
-          Вийти з аккаунту
-        </Link>
+        <Center>
+          <Link to="/" type="button" onClick={() => logout()}>
+            Вийти з аккаунту
+          </Link>
+        </Center>
       )}
-    </>
+    </Container>
   );
 };
 

@@ -4,12 +4,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
+import styled from "styled-components";
 
 import { Redirect } from "react-router-dom";
 
 import CalculationFormGeneral from "containers/CalculationFormGeneral";
 import CalculationFormMaterial from "containers/CalculationFormMaterial";
 import CalculationResult from "containers/CalculationResult";
+
+const Container = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+`;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -182,7 +188,7 @@ export default function HorizontalLabelPositionBelowStepper() {
           </Step>
         ))}
       </Stepper>
-      <div>
+      <Container>
         <div style={{ padding: "24px" }}>
           <div>
             {getStepContent(
@@ -194,7 +200,7 @@ export default function HorizontalLabelPositionBelowStepper() {
             )}
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

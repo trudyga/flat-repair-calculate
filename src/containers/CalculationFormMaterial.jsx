@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { CircularProgress, Checkbox } from "@material-ui/core";
 import MaterialView from "components/MaterialView";
+import ActionButton from "components/ActionButton";
 
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -23,6 +24,13 @@ const MaterialViewContainer = styled.div`
   margin-top: 12px;
   margin-bottom: 12px;
   margin-right: 12px;
+`;
+const ButtonsBlock = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const ButtonDivider = styled.div`
+  width: 10px;
 `;
 
 const WallsSchema = Yup.object().shape({
@@ -107,17 +115,19 @@ const CalculationFormWalls = ({
                   )}
                 </Field>
 
-                <div>
-                  <button type="button" onClick={onGoBack}>
+                <ButtonsBlock>
+                  <ActionButton type="button" onClick={onGoBack}>
                     Назад
-                  </button>
-                  <button
+                  </ActionButton>
+                  <ButtonDivider />
+                  <ActionButton
                     disabled={Object.values(errors).length > 0}
+                    color="primary"
                     type="submit"
                   >
                     Продовжити
-                  </button>
-                </div>
+                  </ActionButton>
+                </ButtonsBlock>
               </>
             )}
 

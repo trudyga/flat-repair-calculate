@@ -6,6 +6,14 @@ import TextInput from "components/TextInput";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
+import styled from "styled-components";
+import ActionButton from "components/ActionButton";
+
+const ButtonsBlock = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 function equalTo(ref: any, msg: any) {
   return Yup.mixed().test({
     name: "equalTo",
@@ -81,12 +89,15 @@ const Register = ({ onSubmit }) => {
               labelText="Повторіть пароль"
               type="password"
             />
-            <button
-              disabled={hasErrors(errors, initialErrors, touched)}
-              type="submit"
-            >
-              Зареєструватись
-            </button>
+            <ButtonsBlock>
+              <ActionButton
+                color="primary"
+                disabled={hasErrors(errors, initialErrors, touched)}
+                type="submit"
+              >
+                Зареєструватись
+              </ActionButton>
+            </ButtonsBlock>
           </Form>
         )}
       </Formik>

@@ -2,15 +2,18 @@
   "name": "flat-repair-calculate",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://trudyga.github.io/flat-repair-calculate",
   "dependencies": {
     "@material-ui/core": "^4.7.0",
     "@material-ui/icons": "^4.5.1",
     "formik": "^2.0.6",
+    "gh-pages": "^2.1.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-fetch-hook": "^1.7.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
+    "serve": "^11.2.0",
     "styled-components": "^4.4.1",
     "yup": "^0.27.0"
   },
@@ -18,7 +21,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "serve": "serve -s build -l 80",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -b master -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
