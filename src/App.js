@@ -8,6 +8,8 @@ import AccountPage from "views/AccountPage";
 import CalculationPage from "views/CaclulationPage";
 import MainPage from "views/MainPage";
 
+import RegisteredGuard from "containers/RegisteredGuard";
+
 function App() {
   return (
     <Router>
@@ -19,7 +21,9 @@ function App() {
         </Switch>
         <Switch>
           <Route path="/calculation">
-            <CalculationPage />
+            <RegisteredGuard>
+              <CalculationPage />
+            </RegisteredGuard>
           </Route>
         </Switch>
         <Switch>

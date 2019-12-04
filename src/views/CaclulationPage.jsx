@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { unstable_batchedUpdates } from "react-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+
+import { Redirect } from "react-router-dom";
 
 import CalculationFormGeneral from "containers/CalculationFormGeneral";
-import CalculationFormWalls from "containers/CalculationFormWalls";
+import CalculationFormMaterial from "containers/CalculationFormMaterial";
+import CalculationResult from "containers/CalculationResult";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,17 +25,113 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-  return ["Загальні дані", "Стіни", "Результат"];
+  return [
+    "Загальні дані",
+    "Стіни",
+    "Підлога",
+    "Двері",
+    "Плинтус",
+    "Розетки",
+    "Кухня",
+    "Ванна кімната",
+    "Результат"
+  ];
 }
 
-function getStepContent(stepIndex) {
+function getStepContent(stepIndex, values, onFill, onBack, onFinish) {
   switch (stepIndex) {
     case 0:
-      return <CalculationFormGeneral />;
+      return (
+        <CalculationFormGeneral
+          key="general"
+          initials={values}
+          onSubmit={({ area, rooms, doors, ceilHeight }) =>
+            onFill({ area, rooms, doors, ceilHeight })
+          }
+        />
+      );
     case 1:
-      return <CalculationFormWalls />;
+      return (
+        <CalculationFormMaterial
+          key="wallsID"
+          initialID={values.wallsID}
+          onSubmit={(id, m) => onFill({ wallsID: id }, { type: "walls", ...m })}
+          onGoBack={onBack}
+          type="walls"
+        />
+      );
     case 2:
-      return "Це результат";
+      return (
+        <CalculationFormMaterial
+          key="floorsID"
+          initialID={values.floorsID}
+          onSubmit={(id, m) =>
+            onFill({ floorsID: id }, { type: "floors", ...m })
+          }
+          onGoBack={onBack}
+          type="floors"
+        />
+      );
+    case 3:
+      return (
+        <CalculationFormMaterial
+          key="doorsID"
+          initialID={values.doorsID}
+          onSubmit={(id, m) => onFill({ doorsID: id }, { type: "doors", ...m })}
+          onGoBack={onBack}
+          type="doors"
+        />
+      );
+    case 4:
+      return (
+        <CalculationFormMaterial
+          key="baseboardsID"
+          initialID={values.baseboardsID}
+          onSubmit={(id, m) =>
+            onFill({ baseboardsID: id }, { type: "baseboards", ...m })
+          }
+          onGoBack={onBack}
+          type="baseboards"
+        />
+      );
+    case 5:
+      return (
+        <CalculationFormMaterial
+          key="powersocketsID"
+          initialID={values.powersocketsID}
+          onSubmit={(id, m) =>
+            onFill({ powersocketsID: id }, { type: "powersockets", ...m })
+          }
+          onGoBack={onBack}
+          type="powersockets"
+        />
+      );
+    case 6:
+      return (
+        <CalculationFormMaterial
+          key="kitchensID"
+          initialID={values.kitchensID}
+          onSubmit={(id, m) =>
+            onFill({ kitchensID: id }, { type: "kitchens", ...m })
+          }
+          onGoBack={onBack}
+          type="kitchens"
+        />
+      );
+    case 7:
+      return (
+        <CalculationFormMaterial
+          key="bathroomsID"
+          initialID={values.bathroomsID}
+          onSubmit={(id, m) =>
+            onFill({ bathroomsID: id }, { type: "bathrooms", ...m })
+          }
+          onGoBack={onBack}
+          type="bathrooms"
+        />
+      );
+    case 8:
+      return <CalculationResult values={values} onClose={onFinish} />;
     default:
       return "Unknown stepIndex";
   }
@@ -43,18 +141,37 @@ export default function HorizontalLabelPositionBelowStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  const [selectedValues, setSelectedValues] = useState({});
+  const [selectedMaterials, setSelectedMaterials] = useState([]);
+  const [redirectAccountPage, setRedirectAccountPage] = useState(false);
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
 
+  function onFill(data, materialData) {
+    unstable_batchedUpdates(() => {
+      if (materialData !== undefined) {
+        const newSelectedMaterials = selectedMaterials
+          .filter(m => m.type !== materialData.type)
+          .concat([materialData]);
+        setSelectedMaterials(newSelectedMaterials);
+      }
+
+      setSelectedValues({ ...selectedValues, ...data });
+      handleNext();
+    });
+  }
+
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  const handleFinish = () => setRedirectAccountPage(true);
+
+  if (redirectAccountPage) {
+    return <Redirect to="/my-account" />;
+  }
 
   return (
     <div className={classes.root}>
@@ -66,32 +183,17 @@ export default function HorizontalLabelPositionBelowStepper() {
         ))}
       </Stepper>
       <div>
-        {activeStep === steps.length ? (
+        <div style={{ padding: "24px" }}>
           <div>
-            <Typography className={classes.instructions}>
-              All steps completed
-            </Typography>
-            <Button onClick={handleReset}>Reset</Button>
+            {getStepContent(
+              activeStep,
+              selectedValues,
+              onFill,
+              handleBack,
+              handleFinish
+            )}
           </div>
-        ) : (
-          <div>
-            <Typography className={classes.instructions}>
-              {getStepContent(activeStep)}
-            </Typography>
-            <div>
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                className={classes.backButton}
-              >
-                Back
-              </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </div>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

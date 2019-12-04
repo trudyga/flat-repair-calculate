@@ -8,7 +8,7 @@ const InlineContainer = styled.div`
   display: flex;
 `;
 
-const TextInput = ({ labelText, unitText, fieldName, ...props }) => {
+const TextInput = ({ labelText, unitText, fieldName, type, ...props }) => {
   return (
     <Field name={fieldName}>
       {({ field, form, meta }) => (
@@ -19,7 +19,8 @@ const TextInput = ({ labelText, unitText, fieldName, ...props }) => {
               <input
                 name={fieldName}
                 {...field}
-                type="text"
+                type={type}
+                autoComplete={type === "password" ? "new-password" : "off"}
                 placeholder="Введіть..."
                 {...props}
               />
@@ -38,10 +39,12 @@ const TextInput = ({ labelText, unitText, fieldName, ...props }) => {
 
 TextInput.propTypes = {
   labelText: PropTypes.string.isRequired,
-  unitText: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+  unitText: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  type: PropTypes.string
 };
 TextInput.defaultProps = {
-  unitText: undefined
+  unitText: undefined,
+  type: "text"
 };
 
 export default TextInput;

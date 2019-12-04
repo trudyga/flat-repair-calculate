@@ -37,14 +37,20 @@ const GeneralSchema = Yup.object().shape({
     .required()
 });
 
-const CalculationFormGeneral = ({ onSubmit: onFormSubmit }) => {
+const CalculationFormGeneral = ({ initials, onSubmit: onFormSubmit }) => {
   return (
     <div>
       <Formik
-        initialValues={{ area: 10, rooms: 1, doors: 2, ceilHeight: 1 }}
+        initialValues={{
+          area: 10,
+          rooms: 1,
+          doors: 2,
+          ceilHeight: 1,
+          address: "",
+          ...initials
+        }}
         validationSchema={GeneralSchema}
         onSubmit={(values, actions) => {
-          console.log("values", values);
           onFormSubmit(values);
         }}
       >
@@ -79,7 +85,7 @@ const CalculationFormGeneral = ({ onSubmit: onFormSubmit }) => {
             />
             <TextInput fieldName="address" labelText="Адреса будинку" />
             <button disabled={Object.values(errors).length > 0} type="submit">
-              Переглянути результат
+              Продовжити
             </button>
           </Form>
         )}
@@ -88,6 +94,9 @@ const CalculationFormGeneral = ({ onSubmit: onFormSubmit }) => {
   );
 };
 
-CalculationFormGeneral.propTypes = {};
+CalculationFormGeneral.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  initials: PropTypes.object.isRequired
+};
 
 export default CalculationFormGeneral;
